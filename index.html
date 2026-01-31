@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>💕 ¿Quieres ser mi San Valentín? 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #c21858 0%, #e63946 25%, #f72585 50%, #7209b7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animación de pétalos cayendo */
+        .petal {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(ellipse at center, #e63946 0%, #c21858 100%);
+            border-radius: 50% 0 50% 0;
+            opacity: 0.7;
+            animation: fall linear infinite;
+            transform-origin: center;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Animación de corazones cayendo */
+        .heart {
+            position: absolute;
+            color: #e63946;
+            font-size: 20px;
+            opacity: 0.6;
+            animation: fall-hearts linear infinite;
+        }
+
+        @keyframes fall-hearts {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(110vh) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(194, 24, 88, 0.4);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            animation: float 3s ease-in-out infinite;
+            border: 3px solid rgba(230, 57, 70, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                width: 95%;
+                border-radius: 20px;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: #c21858;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(194, 24, 88, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .emoji {
+            font-size: 4em;
+            margin: 20px 0;
+            display: none;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        /* Imagen personalizada - puedes cambiar esta imagen */
+        .custom-image {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none; /* Oculta por defecto, cambia a 'block' cuando agregues tu imagen */
+        }
+
+        /* Texto dinámico que cambia con cada clic */
+        .dynamic-text {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #c21858;
+            margin: 20px 0;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .dynamic-text {
+                font-size: 1.3em;
+                min-height: 50px;
+                margin: 15px 0;
+            }
+        }
+
+        /* Contenedor de imagen dinámica */
+        .dynamic-image-container {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 250px;
+        }
+
+        .dynamic-image {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @media (max-width: 768px) {
+            .dynamic-image-container {
+                margin: 20px 0;
+                min-height: 200px;
+            }
+
+            .dynamic-image {
+                max-width: 250px;
+                border-radius: 15px;
+            }
+        }
+
+        .dynamic-image.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .buttons-container {
+                gap: 15px;
+                margin-top: 30px;
+            }
+        }
+
+        button {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.2em;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            button {
+                font-size: 1em;
+                padding: 15px 30px;
+            }
+        }
+
+        #btnSi {
+            background: linear-gradient(135deg, #e63946 0%, #c21858 100%);
+            color: white;
+            transform: scale(1);
+        }
+
+        #btnSi:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(194, 24, 88, 0.5);
+        }
+
+        #btnNo {
+            background: linear-gradient(135deg, #fff 0%, #ffe0e6 100%);
+            color: #c21858;
+            border: 2px solid #e63946;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        #btnNo:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #ffe0e6 0%, #ffd0d9 100%);
+        }
+
+        #btnNo.moving {
+            position: fixed;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(194, 24, 88, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .celebration-content {
+            text-align: center;
+            color: white;
+        }
+
+        .celebration-content h2 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .celebration-content h2 {
+                font-size: 2em;
+                margin-bottom: 15px;
+                padding: 0 20px;
+            }
+        }
+
+        .celebration-content p {
+            padding: 0 20px;
+        }
+
+        .celebration-emoji {
+            font-size: 6em;
+        }
+
+        @media (max-width: 768px) {
+            .celebration-emoji {
+                font-size: 4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor de pétalos y corazones -->
+    <div id="particles"></div>
+
+    <div class="container">
+        <h1>Hola Jaquesita ¿Quieres ser mi San Valentín?</h1>
+        
+        
+        
+        <!-- Texto que cambia con cada clic en "No" -->
+        <div class="dynamic-text" id="dynamicText"></div>
+        
+        <!-- Contenedor de imágenes dinámicas -->
+        <div class="dynamic-image-container">
+            <!-- ============================================ -->
+            <!-- AQUÍ AGREGAS TUS IMÁGENES PARA CADA ESTADO -->
+            <!-- ============================================ -->
+            <!-- Imagen 1 - Primera vez que presiona "No" -->
+           <img src="C:\Users\juanm\Downloads\imagen 1.png"im alt="Imagen 1" class="dynamic-image" id="img0">
+            
+            <!-- Imagen 2 - "¿Cómo que no?" -->
+            <img src="C:\Users\juanm\Downloads\imagen 2.png" alt="Imagen 2" class="dynamic-image" id="img1">
+            
+            <!-- Imagen 3 - "¿Segura?" -->
+            <img src="C:\Users\juanm\Downloads\imagen 3.png" alt="Imagen 3" class="dynamic-image" id="img2">
+            
+            <!-- Imagen 4 - "Piénsalo mejor" -->
+            <img src="C:\Users\juanm\Downloads\imagen 4.png" alt="Imagen 4" class="dynamic-image" id="img3">
+            
+            <!-- Imagen 5 - "Dale una oportunidad" -->
+            <img src="C:\Users\juanm\Downloads\imagen 5.png" alt="Imagen 5" class="dynamic-image" id="img4">
+            
+            <!-- Imagen 6 - "No me hagas esto" -->
+            <img src="C:\Users\juanm\Downloads\imagen 6.png" alt="Imagen 6" class="dynamic-image" id="img5">
+            
+            <!-- Imagen 7 - "¿De verdad?" -->
+            <img src="C:\Users\juanm\Downloads\imagen 7.png" alt="Imagen 7" class="dynamic-image" id="img6">
+            
+            <!-- Imagen 8 - "Recapacita por favor" -->
+            <img src="C:\Users\juanm\Downloads\imagen 8.png" alt="Imagen 8" class="dynamic-image" id="img7">
+            
+            <!-- Imagen 9 - "Vas a romperme el corazón" -->
+            <img src="C:\Users\juanm\Downloads\imagen 9.png" alt="Imagen 9" class="dynamic-image" id="img8">
+            
+            <!-- Imagen 10 - "Una última vez..." -->
+            <img src="C:\Users\juanm\Downloads\imagen 10.png" alt="Imagen 10" class="dynamic-image" id="img9">
+            <!-- ============================================ -->
+        </div>
+        
+        <div class="buttons-container">
+            <button id="btnSi">Sí quiero</button>
+            <button id="btnNo">No</button>
+        </div>
+    </div>
+
+    <div class="celebration" id="celebration">
+        <div class="celebration-content">
+            <div><img src="C:\Users\juanm\Downloads\besito-catlove.gif" alt="Besito"></div>
+            <h2>Ay, no pensé que fuera a funcionar</h2>
+            <h2>prometo no decepcionarte, te amito mucho </h2>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // AQUÍ PUEDES EDITAR LOS TEXTOS DEL BOTÓN "NO"
+        // ==========================================
+        const noButtonTexts = [
+            "¿Cómo que no?",              // Primera vez
+            "¿En serio?", // Segunda vez
+            "¿Segura?",     // Tercera vez
+            "Piénsalo mejor", // Cuarta vez (ya empieza a moverse)
+            "Dame una oportunidad corazon de melon",
+            "Yo se que si quieres",
+            "Estoy loco, laralala",
+            "Tendré que abrazar un zapato",
+            "Por eso esperaba con la carita mojada",
+            "Andale si?"
+        ];
+        // ==========================================
+
+        let noClickCount = 0;
+        const btnNo = document.getElementById('btnNo');
+        const btnSi = document.getElementById('btnSi');
+        const celebration = document.getElementById('celebration');
+        const dynamicText = document.getElementById('dynamicText');
+
+        // Crear pétalos y corazones cayendo
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            
+            // Crear pétalos
+            for (let i = 0; i < 20; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                petal.style.animationDelay = Math.random() * 5 + 's';
+                particlesContainer.appendChild(petal);
+            }
+
+            // Crear corazones
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = '💕';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                particlesContainer.appendChild(heart);
+            }
+        }
+
+        // Función para mover el botón "No" aleatoriamente (pero manteniéndolo visible)
+        function moveNoButton() {
+            // Obtener dimensiones de la ventana
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            const btnWidth = btnNo.offsetWidth;
+            const btnHeight = btnNo.offsetHeight;
+            
+            // Calcular límites con margen generoso para mantener el botón siempre visible
+            const margin = 60; // Margen más grande para asegurar visibilidad
+            const maxX = windowWidth - btnWidth - margin;
+            const maxY = windowHeight - btnHeight - margin;
+            
+            // Asegurar que los valores permitan que el botón esté siempre visible
+            const safeMaxX = Math.max(margin, maxX);
+            const safeMaxY = Math.max(margin, maxY);
+            
+            // Generar posición aleatoria dentro del área segura
+            const randomX = margin + (Math.random() * (safeMaxX - margin));
+            const randomY = margin + (Math.random() * (safeMaxY - margin));
+            
+            btnNo.style.left = randomX + 'px';
+            btnNo.style.top = randomY + 'px';
+        }
+
+        // Función para actualizar la imagen visible
+        function updateImage(index) {
+            // Ocultar todas las imágenes
+            const allImages = document.querySelectorAll('.dynamic-image');
+            allImages.forEach(img => img.classList.remove('active'));
+            
+            // Mostrar la imagen correspondiente al índice
+            const currentImage = document.getElementById('img' + index);
+            if (currentImage) {
+                currentImage.classList.add('active');
+            }
+        }
+
+        // Manejar clic en botón "No"
+        btnNo.addEventListener('click', function() {
+            // Actualizar el texto dinámico
+            if (noClickCount < noButtonTexts.length) {
+                dynamicText.textContent = noButtonTexts[noClickCount];
+            }
+
+            // Actualizar la imagen correspondiente
+            updateImage(noClickCount);
+
+            noClickCount++;
+
+            // Después de 3 clics, empezar a mover el botón (pero mantenerlo visible)
+            if (noClickCount >= 3 && noClickCount < 10) {
+                btnNo.classList.add('moving');
+                moveNoButton();
+            }
+            
+            // En el décimo clic, mover el botón completamente fuera de la pantalla
+            if (noClickCount === 10) {
+                btnNo.classList.add('moving');
+                btnNo.style.left = '-200px';
+                btnNo.style.top = '-200px';
+            }
+
+            // Hacer que el botón "Sí" crezca un poco cada vez
+            const currentScale = 1 + (noClickCount * 0.1);
+            btnSi.style.transform = `scale(${currentScale})`;
+        });
+
+        // Manejar clic en botón "Sí"
+        btnSi.addEventListener('click', function() {
+            celebration.style.display = 'flex';
+        });
+
+        // Inicializar partículas
+        createParticles();
+    </script>
+</body>
+</html>
